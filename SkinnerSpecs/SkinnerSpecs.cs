@@ -7,7 +7,7 @@ using Skinner;
 
 namespace SkinnerSpecs
 {
-    public class SkinnerSpecs:Spec
+    public class SkinnerSpecs : Spec
     {
         public override void Specs()
         {
@@ -26,8 +26,34 @@ namespace SkinnerSpecs
             {
                 it("should accept multiple descriptions", () =>
                 {
-                    
+
                 });
+            });
+            describe("Skinner descriptions", () =>
+            {
+                it("should run a single description", () =>
+                {
+                    var spec = new SingleDescriptionTestSpec();
+                    spec.Run();
+                });
+                it("should notify that it's running a description", () =>
+                {
+                    var spec = new SingleDescriptionTestSpec();
+                    string description = "shit just got real";
+                    spec.onDescription += (o, a) => description = a.Description;
+                    spec.Run();
+                    expect(description).toBe("Single Description Spec");
+                });
+            });
+        }
+    }
+
+    class SingleDescriptionTestSpec : Spec
+    {
+        public override void Specs()
+        {
+            describe("Single Description Spec", () =>
+            {
 
             });
         }
